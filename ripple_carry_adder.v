@@ -1,0 +1,21 @@
+
+`timescale 1ns / 1ps
+
+module ripple_carry_adder (
+    input  wire [3:0] A,    // 4-bit input A
+    input  wire [3:0] B,    // 4-bit input B
+    input  wire       Cin,  // Initial carry input
+    output wire [3:0] Sum,  // 4-bit sum output
+    output wire       Cout  // Final carry output
+);
+
+    wire [3:0] carry; // Internal carry signals
+
+    // Instantiate 4 full adders
+    full_adder fa0 (.a(A[0]), .b(B[0]), .cin(Cin),      .sum(Sum[0]), .cout(carry[0]));
+    full_adder fa1 (.a(A[1]), .b(B[1]), .cin(carry[0]), .sum(Sum[1]), .cout(carry[1]));
+    full_adder fa2 (.a(A[2]), .b(B[2]), .cin(carry[1]), .sum(Sum[2]), .cout(carry[2]));
+    full_adder fa3 (.a(A[3]), .b(B[3]), .cin(carry[2]), .sum(Sum[3]), .cout(Cout));
+
+endmodule
+
